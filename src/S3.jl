@@ -626,11 +626,11 @@ function do_http(env::AWSEnv, ro::RO)
         end
     end
 
-    push!(all_hdrs, ("Authorization",  "AWS " * env.aws_id * ":" * s_b64))
+    push!(all_hdrs, Pair{AbstractString,AbstractString}("Authorization","AWS " * env.aws_id * ":" * s_b64))
 
     url = "https://s3.amazonaws.com" * full_path
 
-    http_options = RequestOptions(headers=all_hdrs, ostream=ro.ostream, request_timeout=env.timeout, auto_content_type=false)
+    http_options = RequestOptions(headers=[(x[1],x[2]) for x in all_hdrs], ostream=ro.ostream, request_timeout=env.timeout, auto_content_type=false)
 
     if env.dbg
         println("Verb : " * string(ro.verb))
@@ -777,7 +777,7 @@ function get_canon_amz_headers(headers::Vector{Tuple})
     for (k,v) in lcase
         if startswith(k,"x-amz-")
             new_v = strip(replace(v, "\n", ' '))
-            if in(k, reduced)
+            if haskey(reduced,k)
                 ev = reduced[k]
                 reduced[k] = ev * "," * new_v
             else
