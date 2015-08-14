@@ -612,7 +612,7 @@ function do_http(env::AWSEnv, ro::RO)
     (new_amz_hdrs, full_path, s_b64) = canonicalize_and_sign(env, ro, md5)
 
     all_hdrs = new_amz_hdrs
-    (md5 != "") ? push!(all_hdrs, ("Content-MD5", md5)) : nothing
+    (md5 != "") ? push!(all_hdrs, Pair{AbstractString,AbstractString}("Content-MD5", md5)) : nothing
     (ro.cont_typ != "") ? push!(all_hdrs, ("Content-Type", ro.cont_typ)) : nothing
 
     # Remove Content-MD5 and Expect headers from the passed http_hdrs
