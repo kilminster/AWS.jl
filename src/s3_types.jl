@@ -816,7 +816,7 @@ type GetObjectOptions
 
     GetObjectOptions(;response_cont_typ=nothing, response_content_language=nothing, response_expires=nothing, response_cache_control=nothing, response_content_disposition=nothing,
         response_content_encoding=nothing, range=nothing, if_modified_since=nothing, if_unmodified_since=nothing, if_match=nothing, if_none_match=nothing) = begin
-            new (response_cont_typ, response_content_language, response_expires, response_cache_control, response_content_disposition,response_content_encoding, range, if_modified_since, if_unmodified_since, if_match, if_none_match)
+            new(response_cont_typ, response_content_language, response_expires, response_cache_control, response_content_disposition,response_content_encoding, range, if_modified_since, if_unmodified_since, if_match, if_none_match)
         end
 end
 function http_headers(arr, o::GetObjectOptions)

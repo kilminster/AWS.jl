@@ -73,18 +73,18 @@ export md5_file
 
 function md5(s::String)
     md = zeros(Uint8, 16)
-    assert (MD5(s, length(s), md) != C_NULL)
+    assert(MD5(s, length(s), md) != C_NULL)
     return md
 end
 
 function md5(s::IO)
     evp_md_ctx = EVP_MD_CTX_create()
-    assert (evp_md_ctx != C_NULL)
+    assert(evp_md_ctx != C_NULL)
 
     md = zeros(Uint8, 16)
     try
         evp_md = EVP_md5()
-        assert (evp_md != C_NULL)
+        assert(evp_md != C_NULL)
         
         rc = EVP_DigestInit_ex(evp_md_ctx, evp_md, C_NULL)
         assert(rc == 1)

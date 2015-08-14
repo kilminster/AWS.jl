@@ -36,7 +36,7 @@ end
 CHK_ERR(resp::EC2Response) = (typeof(resp.obj) == EC2Error) ? error(ec2_error_str(resp.obj)) : resp.obj
 
 
-function ec2_terminate (instances; env=AWSEnv())
+function ec2_terminate(instances; env=AWSEnv())
     if length(instances) > 0
         req = TerminateInstancesType(instancesSet=instances)
         resp = CHK_ERR(TerminateInstances(env, req))
@@ -267,7 +267,7 @@ function ec2_show_status(instances; env=AWSEnv())
 end
 
 
-function ec2_instances_by_tag (tag, tagvalue; env=AWSEnv(), running_only=true)
+function ec2_instances_by_tag(tag, tagvalue; env=AWSEnv(), running_only=true)
     tagfilter = FilterType(name="tag:" * tag, valueSet=[tagvalue])
 
     if running_only
@@ -290,7 +290,7 @@ function ec2_instances_by_tag (tag, tagvalue; env=AWSEnv(), running_only=true)
 end
 
 
-function ec2_mount_snapshot (instance::String, snapshot::String, mount::String, ec2_keyfile::String; env=AWSEnv(), dev="/dev/xvdh",
+function ec2_mount_snapshot(instance::String, snapshot::String, mount::String, ec2_keyfile::String; env=AWSEnv(), dev="/dev/xvdh",
                                 hostuser::String="ubuntu")
     # first get the availability zone....
     resp = CHK_ERR(DescribeInstances(env, instancesSet=[instance]))

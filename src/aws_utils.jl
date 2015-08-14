@@ -24,7 +24,7 @@ function safe_parse_as(as::Type, s::Union(String, Nothing))
 end
 export safe_parse_as
 
-macro parse_vector (typ, vect)
+macro parse_vector(typ, vect)
      quote
         jl_vect = $(esc(typ))[]
         if ($(esc(vect)) != nothing)
@@ -38,7 +38,7 @@ end
 export @parse_vector
 
 
-function parse_vector_as (as_type::Type, typ_str::String, vect)
+function parse_vector_as(as_type::Type, typ_str::String, vect)
     jl_vect = as_type[]
     if (vect == nothing) return jl_vect end
     for pd in vect
